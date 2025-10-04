@@ -1,10 +1,16 @@
 {
-  "name": "library-pack",
-  "description": "Minimal but complete pack with declarations and maps.",
+  "name": "library-packer",
+  "description": "Minimal but complete packer with declarations and maps.",
   "version": "0.0.0",
   "type": "module",
-  "private": true,
-  "bin": "out/main.js",
+  "license": "Apache-2.0",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/aprosail/library-packer.git"
+  },
+  "bin": {
+    "library-pack": "out/main.js"
+  },
   "exports": {
     "./tsconfig.json": "./tsconfig.json"
   },

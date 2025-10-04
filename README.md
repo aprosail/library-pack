@@ -1,3 +1,9 @@
-# Library Pack
+# Library Packer
 
-Minimal but complete pack with declarations and maps.
+Minimal but complete packer with declarations and maps.
+
+WIP.
+
+## License
+
+This package is released under [the Apache-2.0 license](./LICENSE).
