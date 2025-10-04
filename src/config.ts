@@ -35,7 +35,7 @@ export type PackOptions = FileOptions & {
 
   /**
    * Excludes glob patterns,
-   * default to ["node_modules/**\/*", "**\/*.test.ts"].
+   * default to ["node_modules/**\/*", "**\/*.test.ts", "**\/test/**\/*"].
    */
   excludes?: string[]
 
@@ -50,7 +50,7 @@ export type PackOptions = FileOptions & {
  * 2. Sets srcdir to "src" if not provided.
  * 3. Sets outdir to "out" if not provided.
  * 4. Sets includes to ["**\/*"] if not provided.
- * 5. Sets excludes to ["node_modules/**\/*", "**\/*.test.ts"] if not provided.
+ * 5. Sets excludes to ignore node_modules and test files/directories if not provided.
  * 6. Override typescript options to remove js comment by default.
  * 6. Override typescript options to enable declaration by default.
  */
@@ -60,7 +60,11 @@ export function resolveOptions(options: PackOptions): PackOptions {
     srcdir: options.srcdir || "src",
     outdir: options.outdir || "out",
     includes: options.includes || ["**/*.ts"],
-    excludes: options.excludes || ["node_modules/**/*", "**/*.test.ts"],
+    excludes: options.excludes || [
+      "node_modules/**/*",
+      "**/*.test.ts",
+      "**/test/**/*",
+    ],
     sourcemap: options.sourcemap || true,
     typescript: {
       ...options.typescript,

@@ -14,7 +14,7 @@ export function maybeWriteFile(
   data?: string,
   options?: WriteFileOptions,
 ) {
-  if (!data) return
+  if (data === undefined) return
   writeFileSync(file, data, options)
 }
 

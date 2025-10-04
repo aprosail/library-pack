@@ -150,7 +150,7 @@ describe("resolveOptions", () => {
       srcdir: "custom-src",
       outdir: "out",
       includes: ["src/**/*"],
-      excludes: ["node_modules/**/*", "**/*.test.ts"],
+      excludes: ["node_modules/**/*", "**/*.test.ts", "**/test/**/*"],
       sourcemap: true,
       typescript: {
         declaration: {
@@ -166,7 +166,7 @@ describe("resolveOptions", () => {
       srcdir: "src",
       outdir: "out",
       includes: ["**/*.ts"],
-      excludes: ["node_modules/**/*", "**/*.test.ts"],
+      excludes: ["node_modules/**/*", "**/*.test.ts", "**/test/**/*"],
       sourcemap: true,
       typescript: {
         declaration: {
