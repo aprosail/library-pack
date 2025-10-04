@@ -4,13 +4,23 @@
   "version": "0.0.0",
   "type": "module",
   "private": true,
+  "bin": "out/main.js",
+  "exports": {
+    "./tsconfig.json": "./tsconfig.json"
+  },
   "scripts": {
     "format": "prettier --write .",
-    "review": "prettier --check . && oxlint"
+    "review": "prettier --check . && oxlint",
+    "build": "rolldown --config rolldown.config.ts && node out/main.js"
+  },
+  "dependencies": {
+    "oxc-transform": "^0.93.0"
   },
   "devDependencies": {
+    "@types/node": "^24.6.2",
     "oxlint": "^1.19.0",
     "prettier": "^3.6.2",
-    "prettier-plugin-sh": "^0.18.0"
+    "prettier-plugin-sh": "^0.18.0",
+    "rolldown": "1.0.0-beta.41"
   }
 }

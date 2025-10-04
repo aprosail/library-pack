@@ -1,0 +1,3 @@
+srcdir: src
+outdir: out
+includes: ["**/*.ts"]
