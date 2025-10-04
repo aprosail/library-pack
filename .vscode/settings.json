@@ -13,9 +13,16 @@
   // "explorer.fileNesting.enabled": true,
   // "explorer.fileNesting.expand": false,
   "explorer.fileNesting.patterns": {
+    "*.js": "${capture}.d.ts, ${capture}.js.map, ${capture}.d.ts.map",
     "*.ts": "${capture}.test.ts",
     "package.json": "pnpm-lock.yaml",
     "readme.md": "LICENSE"
+  },
+
+  // Special file associations.
+  "files.associations": {
+    "*.js.map": "json",
+    "*.d.ts.map": "json"
   },
 
   // Code spell checker (require recommended extensions).
@@ -24,6 +31,7 @@
     "esbenp",
     "esbuild",
     "nodenext",
+    "nodir",
     "oxlint",
     "oxlintrc",
     "rolldown"

@@ -3,6 +3,7 @@ import {
   defineConfig,
   loadJsonOptions,
   loadYamlOptions,
+  PackOptions,
   resolveOptions,
 } from "./config.js"
 
@@ -40,7 +41,6 @@ describe("jsonc options", () => {
       srcdir: "src",
       outdir: "out",
       includes: ["**/*.ts", "**/*.tsx"],
-      excludes: ["node_modules/**/*"],
     })
   })
 
@@ -48,12 +48,7 @@ describe("jsonc options", () => {
     const json = `{}`
 
     const result = loadJsonOptions(json)
-    expect(result).toEqual({
-      srcdir: "src",
-      outdir: "out",
-      includes: ["**/*"],
-      excludes: ["node_modules/**/*"],
-    })
+    expect(result).toEqual({})
   })
 
   test("should handle partial options", () => {
@@ -62,9 +57,6 @@ describe("jsonc options", () => {
     const result = loadJsonOptions(json)
     expect(result).toEqual({
       srcdir: "custom-src",
-      outdir: "out",
-      includes: ["**/*"],
-      excludes: ["node_modules/**/*"],
     })
   })
 })
@@ -104,7 +96,6 @@ describe("yaml options", () => {
       srcdir: "src",
       outdir: "out",
       includes: ["**/*.ts", "**/*.tsx"],
-      excludes: ["node_modules/**/*"],
     })
   })
 
@@ -112,12 +103,7 @@ describe("yaml options", () => {
     const yaml = ``
 
     const result = loadYamlOptions(yaml)
-    expect(result).toEqual({
-      srcdir: "src",
-      outdir: "out",
-      includes: ["**/*"],
-      excludes: ["node_modules/**/*"],
-    })
+    expect(result).toEqual({})
   })
 
   test("should handle partial yaml options", () => {
@@ -126,9 +112,7 @@ describe("yaml options", () => {
     const result = loadYamlOptions(yaml)
     expect(result).toEqual({
       srcdir: "custom-src",
-      outdir: "out",
       includes: ["src/**/*"],
-      excludes: ["node_modules/**/*"],
     })
   })
 
@@ -166,8 +150,14 @@ describe("resolveOptions", () => {
       srcdir: "custom-src",
       outdir: "out",
       includes: ["src/**/*"],
-      excludes: ["node_modules/**/*"],
-    })
+      excludes: ["node_modules/**/*", "**/*.test.ts"],
+      sourcemap: true,
+      typescript: {
+        declaration: {
+          sourcemap: true,
+        },
+      },
+    } satisfies PackOptions)
   })
 
   test("should handle empty options", () => {
@@ -175,9 +165,15 @@ describe("resolveOptions", () => {
     expect(result).toEqual({
       srcdir: "src",
       outdir: "out",
-      includes: ["**/*"],
-      excludes: ["node_modules/**/*"],
-    })
+      includes: ["**/*.ts"],
+      excludes: ["node_modules/**/*", "**/*.test.ts"],
+      sourcemap: true,
+      typescript: {
+        declaration: {
+          sourcemap: true,
+        },
+      },
+    } satisfies PackOptions)
   })
 })
 

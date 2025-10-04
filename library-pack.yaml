@@ -1,3 +1,5 @@
+emptyOutdir: true
 srcdir: src
 outdir: out
 includes: ["**/*.ts"]
+excludes: ["node_modules/**/*", "**/*.test.ts"]
