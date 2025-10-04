@@ -13,11 +13,19 @@
   // "explorer.fileNesting.enabled": true,
   // "explorer.fileNesting.expand": false,
   "explorer.fileNesting.patterns": {
+    "*.ts": "${capture}.test.ts",
     "package.json": "pnpm-lock.yaml",
     "readme.md": "LICENSE"
   },
 
   // Code spell checker (require recommended extensions).
   "cSpell.ignorePaths": ["node_modules", "pnpm-lock.yaml"],
-  "cSpell.words": ["esbenp", "oxlint", "oxlintrc", "rolldown"]
+  "cSpell.words": [
+    "esbenp",
+    "esbuild",
+    "nodenext",
+    "oxlint",
+    "oxlintrc",
+    "rolldown"
+  ]
 }

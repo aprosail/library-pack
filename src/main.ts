@@ -1,2 +1,1 @@
-async function main() {}
-main()
+import("@/index.ts").then(async ({ run }) => await run())

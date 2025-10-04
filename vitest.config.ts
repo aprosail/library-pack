@@ -1,10 +1,9 @@
 import { join } from "node:path"
-import { defineConfig } from "rolldown"
+import { defineConfig } from "vitest/config"
 
 const root = import.meta.dirname
 
 export default defineConfig({
   resolve: { alias: { "@": join(root, "src") } },
-  input: join(root, "src/main.ts"),
-  output: { file: join(root, "out/main.js"), format: "esm" },
+  test: { include: [join(root, "src/**/*.test.ts")] },
 })

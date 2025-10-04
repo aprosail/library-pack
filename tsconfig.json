@@ -1,7 +1,9 @@
 {
   "compilerOptions": {
-    "module": "node16",
-    "moduleResolution": "node16",
+    "module": "nodenext",
+    "moduleResolution": "nodenext",
+    "noEmit": true,
+    "allowImportingTsExtensions": true,
 
     // Strict mode.
     "strict": true,
@@ -11,7 +13,10 @@
     "strictBuiltinIteratorReturn": true,
     "strictPropertyInitialization": true,
     "noImplicitAny": true,
-    "noImplicitThis": true
+    "noImplicitThis": true,
+
+    // Aliases.
+    "paths": { "@/*": ["./src/*"] }
   },
   "include": ["src/**/*"]
 }

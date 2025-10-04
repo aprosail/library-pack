@@ -17,16 +17,23 @@
   "scripts": {
     "format": "prettier --write .",
     "review": "prettier --check . && oxlint",
-    "build": "rolldown --config rolldown.config.ts && node out/main.js"
+    "build": "rolldown --config rolldown.config.ts && node out/main.js",
+    "test": "vitest run",
+    "dev": "vitest"
   },
   "dependencies": {
-    "oxc-transform": "^0.93.0"
+    "consola": "^3.4.2",
+    "glob": "^11.0.3",
+    "oxc-transform": "^0.93.0",
+    "strip-json-comments": "^5.0.3",
+    "yaml": "^2.8.1"
   },
   "devDependencies": {
     "@types/node": "^24.6.2",
     "oxlint": "^1.19.0",
     "prettier": "^3.6.2",
     "prettier-plugin-sh": "^0.18.0",
-    "rolldown": "1.0.0-beta.41"
+    "rolldown": "1.0.0-beta.41",
+    "vitest": "^3.2.4"
   }
 }
