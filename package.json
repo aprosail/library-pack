@@ -17,7 +17,7 @@
   "scripts": {
     "format": "prettier --write .",
     "review": "prettier --check . && oxlint",
-    "build": "rolldown --config rolldown.config.ts && node out/main.js",
+    "build": "tsx src/main.ts",
     "test": "vitest run",
     "dev": "vitest"
   },
@@ -33,7 +33,7 @@
     "oxlint": "^1.19.0",
     "prettier": "^3.6.2",
     "prettier-plugin-sh": "^0.18.0",
-    "rolldown": "1.0.0-beta.41",
+    "tsx": "^4.20.6",
     "vitest": "^3.2.4"
   }
 }
