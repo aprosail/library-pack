@@ -1,0 +1,23 @@
+{
+  "files.encoding": "utf8",
+  "files.eol": "\n",
+  "editor.tabSize": 2,
+  "editor.rulers": [80],
+
+  // Format on save (require recommended extensions).
+  "editor.formatOnSave": true,
+  "editor.codeActionsOnSave": { "source.organizeImports": "always" },
+  "editor.defaultFormatter": "esbenp.prettier-vscode",
+
+  // File nesting patterns (enable as you wish).
+  // "explorer.fileNesting.enabled": true,
+  // "explorer.fileNesting.expand": false,
+  "explorer.fileNesting.patterns": {
+    "package.json": "pnpm-lock.yaml",
+    "readme.md": "LICENSE"
+  },
+
+  // Code spell checker (require recommended extensions).
+  "cSpell.ignorePaths": ["node_modules", "pnpm-lock.yaml"],
+  "cSpell.words": ["esbenp", "oxlint"]
+}

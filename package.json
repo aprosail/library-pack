@@ -1,0 +1,16 @@
+{
+  "name": "library-pack",
+  "description": "Minimal but complete pack with declarations and maps.",
+  "version": "0.0.0",
+  "type": "module",
+  "private": true,
+  "scripts": {
+    "format": "prettier --write .",
+    "review": "prettier --check . && oxlint"
+  },
+  "devDependencies": {
+    "oxlint": "^1.19.0",
+    "prettier": "^3.6.2",
+    "prettier-plugin-sh": "^0.18.0"
+  }
+}

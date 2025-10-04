@@ -1,0 +1,8 @@
+{
+  "recommendations": [
+    // Code qualities.
+    "oxc.oxc-vscode",
+    "esbenp.prettier-vscode",
+    "streetsidesoftware.code-spell-checker"
+  ]
+}
