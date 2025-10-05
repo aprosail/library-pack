@@ -8,24 +8,39 @@ import stripJsonComments from "strip-json-comments"
 import yaml from "yaml"
 
 /**
+ * Options for transforming a single file.
+ *
+ * 1. Extends oxc-transform TransformOptions.
+ * 2. Provides source and output directory configuration.
+ * 3. Files will output relative to outdir as it was related to srcdir.
+ */
+export type FileOptions = TransformOptions & {
+  /** Source directory, default to "src" inside cwd. */
+  srcdir?: string
+
+  /** Output directory, default to "out" inside cwd. */
+  outdir?: string
+}
+
+/**
  * Configuration options for library packing.
  *
  * 1. Extends oxc-transform TransformOptions.
  * 2. Provides source and output directory configuration.
  * 3. Supports include/exclude glob patterns.
  */
-export type PackOptions = TransformOptions & {
-  /** Source directory, default to "src" inside cwd. */
-  srcdir?: string
-
-  /** Output directory, default to "out" inside cwd. */
-  outdir?: string
-
+export type PackOptions = FileOptions & {
   /** Includes glob patterns, default to ["**\/*"]. */
   includes?: string[]
 
-  /** Excludes glob patterns, default to ["node_modules/**\/*"]. */
+  /**
+   * Excludes glob patterns,
+   * default to ["node_modules/**\/*", "**\/*.test.ts", "**\/test/**\/*"].
+   */
   excludes?: string[]
+
+  /** Whether to empty outdir before packing, default to false. */
+  emptyOutdir?: boolean
 }
 
 /**
@@ -35,15 +50,28 @@ export type PackOptions = TransformOptions & {
  * 2. Sets srcdir to "src" if not provided.
  * 3. Sets outdir to "out" if not provided.
  * 4. Sets includes to ["**\/*"] if not provided.
- * 5. Sets excludes to ["node_modules/**\/*"] if not provided.
+ * 5. Sets excludes to ignore node_modules and test files/directories if not provided.
+ * 6. Override typescript options to remove js comment by default.
+ * 6. Override typescript options to enable declaration by default.
  */
-export function resolveOptions(options: PackOptions) {
+export function resolveOptions(options: PackOptions): PackOptions {
   return {
     ...options,
     srcdir: options.srcdir || "src",
     outdir: options.outdir || "out",
-    includes: options.includes || ["**/*"],
-    excludes: options.excludes || ["node_modules/**/*"],
+    includes: options.includes || ["**/*.ts"],
+    excludes: options.excludes || [
+      "node_modules/**/*",
+      "**/*.test.ts",
+      "**/test/**/*",
+    ],
+    sourcemap: options.sourcemap || true,
+    typescript: {
+      ...options.typescript,
+      declaration: options.typescript?.declaration || {
+        sourcemap: options.typescript?.declaration?.sourcemap || true,
+      },
+    },
   }
 }
 
@@ -73,7 +101,7 @@ export function detectOptionsFile(root?: string): string | undefined {
  */
 export function loadJsonOptions(code: string): PackOptions {
   const raw = JSON.parse(stripJsonComments(code)) as PackOptions
-  return resolveOptions(raw)
+  return raw
 }
 
 /**
@@ -85,7 +113,7 @@ export function loadJsonOptions(code: string): PackOptions {
  */
 export function loadYamlOptions(code: string): PackOptions {
   const raw = yaml.parse(code) as PackOptions | null
-  return resolveOptions(raw || {})
+  return raw || {}
 }
 
 /**
@@ -109,7 +137,7 @@ export function defineConfig(config: PackOptions): PackOptions {
 export async function loadJSOptions(file: string): Promise<PackOptions> {
   try {
     const config = await import(file)
-    return resolveOptions(config.default || config)
+    return config.default || config
   } catch (error) {
     consola.error(`Failed to load JavaScript config from ${file}:`, error)
     return {}
@@ -140,7 +168,7 @@ export async function loadTSOptions(file: string): Promise<PackOptions> {
 
     // Use dynamic import with data URL
     const config = await import(dataUrl)
-    return resolveOptions(config.default || config)
+    return config.default || config
   } catch (error) {
     consola.error(`Failed to load TypeScript config from ${file}:`, error)
     return {}
@@ -181,6 +209,11 @@ export async function loadOptionsFile(file: string): Promise<PackOptions> {
   }
 }
 
+export type RunPathOptions = {
+  file?: string
+  root?: string
+}
+
 /**
  * Main function to load configuration options.
  *
@@ -189,10 +222,7 @@ export async function loadOptionsFile(file: string): Promise<PackOptions> {
  * 3. Returns resolved PackOptions object.
  * 4. Returns empty object if no configuration file found.
  */
-export async function loadOptions(path?: {
-  file?: string
-  root?: string
-}): Promise<PackOptions> {
+export async function loadOptions(path?: RunPathOptions): Promise<PackOptions> {
   const file = path?.file || detectOptionsFile(path?.root)
   if (!file) return {} as PackOptions
   return await loadOptionsFile(file)

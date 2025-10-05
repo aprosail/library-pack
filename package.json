@@ -12,7 +12,11 @@
     "library-pack": "out/main.js"
   },
   "exports": {
-    "./tsconfig.json": "./tsconfig.json"
+    "./tsconfig.json": "./tsconfig.json",
+    ".": {
+      "import": "./out/index.js",
+      "types": "./out/index.d.ts"
+    }
   },
   "scripts": {
     "format": "prettier --write .",
