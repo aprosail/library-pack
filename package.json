@@ -28,7 +28,7 @@
   "dependencies": {
     "consola": "^3.4.2",
     "glob": "^11.0.3",
-    "oxc-transform": "^0.93.0",
+    "oxc-transform": "^0.95.0",
     "strip-json-comments": "^5.0.3",
     "yaml": "^2.8.1"
   },
